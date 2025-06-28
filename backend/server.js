@@ -73,6 +73,58 @@ app.post("/api/transactions",async(req,res) => {
    
 });
 
+app.delete("/api/transactions/:id",async(req,res) => {
+
+    try{
+    const { id } = req.params;
+
+    if(isNaN(parseInt(id))){
+        return res.status(400).json({message:"Invalid Transaction ID"});
+    }
+
+    const result = await sql`
+    DELETE FROM transactions WHERE id = ${id} RETURNING *
+    `
+
+    if(result.length === 0){
+        return res.status(400).json({message:"Transaction not found"})
+        
+    }
+
+    res.status(200).json("Transaction deleted succcessfully");
+}catch(error){
+    console.log("Error deleting the transaction",error);
+    res.status(500).json({messsage:"Internal server error"});
+}
+});
+
+app.get("/api/transactions/summary/:userId",async(req,res) => {
+    try{
+    const {userId} = req.params;
+
+    const balanceResult = await sql `
+        SELECT COALESCE(SUM(amount),0) AS balance FROM transactions WHERE user_id = ${userId}
+    `;
+
+    const incomeResult = await sql `
+        SELECT COALESCE(SUM(amount),0) AS income FROM transactions WHERE user_id = ${userId} AND amount>0
+        `;
+
+    const expenseResult = await sql `
+        SELECT COALESCE(SUM(amount),0) AS expenses FROM transactions WHERE user_id = ${userId} AND amount<0`;
+
+
+    res.status(200).json({
+        balance:balanceResult[0].balance,
+        income:incomeResult[0].income,
+        expense:expenseResult[0].expenses
+    });
+    }catch(error){
+        console.log("Error getting the summary",error);
+        res.status(500).json({message:"Intwenal server error"});
+    }
+});
+
 initDB().then(()=>{
     app.listen(port,()=>{
         console.log("Server is up and running at port 5001")
