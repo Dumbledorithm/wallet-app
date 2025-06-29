@@ -7,11 +7,26 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
     padding: 20,
     justifyContent: "center",
+    
+  },
+  scrollContainer:{
+    flexGrow:1,
+    backgroundColor: COLORS.background,
+    justifyContent:"center",
+    padding:24,
+  },
+  inner:{
+    width:"100%"
+  },
+  top:{
+    alignItems:"center",
+    marginTop: 50,
   },
   illustration: {
+    alignSelf:"center",
     width: 310,
     height: 310,
-    resizeMode: "contain",
+    marginBottom: 24,
   },
   title: {
     fontSize: 32,
@@ -19,6 +34,10 @@ export const styles = StyleSheet.create({
     color: COLORS.text,
     marginVertical: 15,
     textAlign: "center",
+  },
+  form:{
+    width:"100%",
+    marginBottom:50
   },
   input: {
     backgroundColor: COLORS.white,

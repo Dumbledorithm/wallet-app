@@ -54,8 +54,10 @@ export default function Page() {
       extraScrollHeight={30}>
 
       <View style={styles.container}>
-        <Image source={require("@/assets/images/revenue-i4.png")} style={styles.illustration}/>
-      <Text style={styles.title}>Welcome Back</Text>
+        <View style={styles.top}>
+          <Image source={require("@/assets/images/revenue-i4.png")} style={styles.illustration} contentFit= "contain"/>
+          <Text style={styles.title}>Welcome Back</Text>
+        </View>
 
       {error ? (
           <View style={styles.errorBox}>
@@ -66,6 +68,7 @@ export default function Page() {
             </TouchableOpacity>
           </View> 
         ):null}
+      <View style={styles.form}>
 
       <TextInput
         style={[styles.input,error && styles.errorInput]}
@@ -86,10 +89,10 @@ export default function Page() {
       />
 
       <TouchableOpacity style={styles.button} onPress={onSignInPress}>
-        <Text style={styles.buttonText}>SignIn</Text>
+        <Text style={styles.buttonText}>Sign In</Text>
       </TouchableOpacity>
 
-      <View style={styles.footerCotainer}>
+      <View style={styles.footerContainer}>
         <Text style={styles.footerText}>Don&apos;t have an account</Text>
         <Link href="/sign-up" asChild>
           <TouchableOpacity>
@@ -97,6 +100,7 @@ export default function Page() {
           </TouchableOpacity>
           
         </Link>
+      </View>
       </View>
       </View>
     </KeyboardAwareScrollView>

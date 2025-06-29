@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useSignUp } from '@clerk/clerk-expo'
-import { Link, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 import {styles} from "@/assets/styles/auth.styles.js";
 import {Ionicons} from "@expo/vector-icons";
 import {COLORS} from "@/constants/Colors.js";
@@ -100,9 +100,12 @@ export default function SignUpScreen() {
   }
 
   return (
-    <KeyboardAwareScrollView style={{flex:1}} contentContainerStyle={{flexGrow:1}} enableOnAndroid={true} enableAutomaticScroll={true} extraScrollHeight={100}>
-      <View style={styles.container}>
-        <Image source={require("@/assets/images/revenue-i1.png")} style={styles.illustration}/>
+    <KeyboardAwareScrollView style={{flex:1}} 
+      contentContainerStyle={styles.scrollContainer} 
+      enableOnAndroid={true} enableAutomaticScroll={true} 
+      extraScrollHeight={30}>
+        <View style={styles.inner}>
+         <Image source={require("@/assets/images/revenue-i1.png")} style={styles.illustration} contentFit= "contain"/>
 
       
         <Text style={styles.title}>Create Account</Text>
@@ -117,7 +120,7 @@ export default function SignUpScreen() {
         
         ):null}
 
-
+        <View style={{width:"100%"}}> 
         <TextInput
           style={[styles.input,error && styles.errorInput]}
           autoCapitalize="none"
@@ -138,6 +141,7 @@ export default function SignUpScreen() {
         <TouchableOpacity style={styles.button} onPress={onSignUpPress}>
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
+        </View>
 
         <View style={styles.footerContainer}>
           <Text style={styles.footerText}>Already have an account?</Text>
